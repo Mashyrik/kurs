@@ -323,7 +323,7 @@ void findItemOverMonth(const char* fileName) {
         // Условия проверки:
         bool addToFile = false;
 
-        // Условие 1: Если текущий год больше года поступления на 1 и больше
+        // Условие 1: Если текущий год больше года поступления на 1 и больше ++
         if (enteredYear > itemYear + 1) {
             addToFile = true;
         }
