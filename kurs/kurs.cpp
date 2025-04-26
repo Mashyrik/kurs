@@ -313,7 +313,7 @@ void findItemOverMonth(const char* fileName) {
         return;
     }
 
-    Item item;
+    /*Item item;
     while (file >> item.name >> item.quantity >> item.priceForOne >> item.dateOfEntry) {
         // Извлечение данных из даты поступления (формат MMDDYY)
         int itemMonth = (item.dateOfEntry[0] - '0') * 10 + (item.dateOfEntry[1] - '0'); // Месяц
@@ -347,8 +347,39 @@ void findItemOverMonth(const char* fileName) {
     outFile.close();
     file.close();
     cout << "Результаты записаны в файл: " << outputFileName << endl;
-}
+}*/
+    Item item;
+    while (file >> item.name >> item.quantity >> item.priceForOne >> item.dateOfEntry) {
+        // Извлечение данных из даты поступления (формат MMDDYY)
+        int itemMonth = (item.dateOfEntry[0] - '0') * 10 + (item.dateOfEntry[1] - '0'); // Месяц
+        int itemDay = (item.dateOfEntry[2] - '0') * 10 + (item.dateOfEntry[3] - '0');   // День
+        int itemYear = (item.dateOfEntry[4] - '0') * 10 + (item.dateOfEntry[5] - '0');  // Год
 
+        // Условия проверки:
+        bool addToFile = false;
+
+        // Условие 1: Если текущий год больше года поступления на 1 и больше
+        if (enteredYear > itemYear) {
+            addToFile = true;
+
+        }
+        // Условие 2: Если текущий месяц больше месяца поступления на 2
+        else if (enteredYear == itemYear && (enteredMonth - itemMonth > 1)) {
+            addToFile = true;
+        }
+        // Условие 3: Если прошло более 28 дней
+        else if (enteredYear == itemYear && enteredMonth == itemMonth &&
+            (28 - itemDay + enteredDay > 28)) {
+            addToFile = true;
+        }
+
+        // Запись в файл, если товар удовлетворяет условиям
+        if (addToFile) {
+            outFile << item.name << " " << item.quantity << " " << item.priceForOne << " " << item.dateOfEntry << endl;
+            cout << "Товар удовлетворяет условиям: " << item.name << endl;
+        }
+    }
+}
 
 
 int main() {
