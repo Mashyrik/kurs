@@ -285,7 +285,7 @@ void binarySearch(const char* fileName, const char* searchName) {
 
     if (!found) {
         cout << "Товар не найден." << endl;
-    }
+    },поп
 }
 
 void findItemOverMonth(const char* fileName) {
